@@ -15,6 +15,9 @@ async function runTests() {
     const storage = {};
     let runFn = runFnWrapped(storage);
     await runFn("instantiate", genesisJsonSmall, "instantiate")
+
+    runFn = runFnWrapped(storage);
+    await runFn("instantiate", genesisJsonFull, "instantiate")
 }
 
 export async function load(storage = {}, env = {}, logType = LOG.debug) {
@@ -51,7 +54,7 @@ export function runFnWrapped (storage = {}, env = {}) {
         }
         const instance = await load(storage, env, LOG.debug);
         const resp = instance[runfn]();
-        console.log("memory: ", decodeFromUtf8Array(instance.memory.buffer))
+        // console.log("memory: ", decodeFromUtf8Array(instance.memory.buffer))
         return resp
     }
 }
